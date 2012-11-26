@@ -10,7 +10,7 @@ role :db,  "web312.webfaction.com", :primary => true # This is where Rails migra
 set :passphrase, "Resistencia86"
 # role :db,  "your slave db-server here"
 set :user, "alejomongua"
-set :scm_passphrase, "Resistencia86"
+#set :scm_passphrase, "Resistencia86"
 set :ssh_options, {:forward_agent => true}
 
 set :use_sudo, false
