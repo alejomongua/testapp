@@ -12,6 +12,13 @@ set :user, "alejomongua"
 set :scm_parafrase, "Resistencia86"
 set :use_sudo, false
 default_run_options[:pty] = true
+set :keep_releases, 5
+
+set :default_environment, {
+  'PATH' => "#{deploy_to}/bin:$PATH",
+  'GEM_HOME' => "#{deploy_to}/gems", 
+  'RUBYLIB' => "#{deploy_to}/lib"
+}
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
@@ -20,6 +27,45 @@ default_run_options[:pty] = true
 # these http://github.com/rails/irs_process_scripts
 
 namespace :deploy do
+
+  desc "Push local changes to Git repository"
+  task :push do
+
+    # Check for any local changes that haven't been committed
+    # Use 'cap deploy:push IGNORE_DEPLOY_RB=1' to ignore changes to this file (for testing)
+    status = %x(git status --porcelain).chomp
+    if status != ""
+      if status !~ %r{^[M ][M ] config/deploy.rb$}
+        raise Capistrano::Error, "Local git repository has uncommitted changes"
+      elsif !ENV["IGNORE_DEPLOY_RB"]
+        # This is used for testing changes to this script without committing them first
+        raise Capistrano::Error, "Local git repository has uncommitted changes (set IGNORE_DEPLOY_RB=1 to ignore changes to deploy.rb)"
+      end
+    end
+
+    # Check we are on the master branch, so we can't forget to merge before deploying
+    branch = %x(git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/\\1/').chomp
+    if branch != "master" && !ENV["IGNORE_BRANCH"]
+      raise Capistrano::Error, "Not on master branch (set IGNORE_BRANCH=1 to ignore)"
+    end
+
+    # Push the changes
+    if ! system "git push #{fetch(:repository)} master"
+      raise Capistrano::Error, "Failed to push changes to #{fetch(:repository)}"
+    end
+
+  end
+
+
+  desc "deploy the precompiled assets"
+    task :deploy_assets, :except => { :no_release => true } do
+      run_locally("rake assets:clean && rake assets:precompile")
+      upload("public/assets", "#{release_path}/public/assets", :via => :scp, :recursive => true) 
+    end
+
+  before "deploy:update_code", "deploy:push"
+  after "deploy:update_code", 'deploy_assets'  
+
   desc "Restart nginx"
   task :restart do
     run "#{deploy_to}/bin/restart"
