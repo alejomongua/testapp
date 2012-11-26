@@ -14,11 +14,11 @@ set :use_sudo, false
 default_run_options[:pty] = true
 set :keep_releases, 5
 
-set :default_environment, {
-  'PATH' => "#{deploy_to}/bin:$PATH",
-  'GEM_HOME' => "#{deploy_to}/gems", 
-  'RUBYLIB' => "#{deploy_to}/lib"
-}
+#set :default_environment, {
+#  'PATH' => "#{deploy_to}/bin:$PATH",
+#  'GEM_HOME' => "#{deploy_to}/gems", 
+#  'RUBYLIB' => "#{deploy_to}/lib"
+#}
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
