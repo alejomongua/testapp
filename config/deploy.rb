@@ -56,8 +56,14 @@ namespace :deploy do
 
   end
 
+  desc "precompilar assets localmente"
+  task :precompilar_assets, :except => { :no_release => true } do
+    run_locally("rake assets:clean && rake assets:precompile")
+  end
+  
   before "deploy:update_code", "deploy:push"
-  after "deploy:update_code", 'other:deploy_assets'  
+  after "deploy:update_code", 'deploy:precompilar_assets'
+  after "deploy:create_symlink", 'other:deploy_assets'
 
   desc "Restart nginx"
   task :restart do
@@ -68,8 +74,7 @@ end
 namespace :other do
   desc "deploy the precompiled assets"
   task :deploy_assets, :except => { :no_release => true } do
-    run_locally("rake assets:clean && rake assets:precompile")
-    upload("public/assets", "/home/alejomongua/webapps/testapp/current/public/", via: :scp, :recursive => true) 
-    run("cp /home/alejomongua/webapps/testapp/current/public/assets/* /home/alejomongua/webapps/statictestapp/assets/")
+    upload("public/assets", "/home/alejomongua/webapps/statictestapp/", via: :scp, :recursive => true) 
+    run("cp /home/alejomongua/webapps/statictestapp/assets/* /home/alejomongua/webapps/testapp/current/public/assets/")
   end
 end
