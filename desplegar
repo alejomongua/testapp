@@ -2,7 +2,7 @@
 echo "Agregando cambios al repositorio"
 git add .
 echo "Consignando cambios $1"
-git commit -m "$1"
+git commit -a -m "$1"
 echo "Desplegando"
 cap deploy
 echo "terminado"
