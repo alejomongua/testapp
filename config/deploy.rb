@@ -69,6 +69,6 @@ namespace :other do
   desc "deploy the precompiled assets"
   task :deploy_assets, :except => { :no_release => true } do
     run_locally("rake assets:clean && rake assets:precompile")
-    upload("public/assets", "#{release_path}/public/assets", :recursive => true) 
+    upload("public/assets", "#{release_path}/public/assets", via: :scp, :recursive => true) 
   end
 end
