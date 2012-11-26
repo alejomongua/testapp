@@ -1,5 +1,5 @@
 set :application, "testapp"
-set :repository,  "git@github.com:alejomongua/testapp.git"
+set :repository,  "ssh://git@github.com:alejomongua/testapp.git"
 
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 set :deploy_to, "/home/alejomongua/webapps/testapp"
