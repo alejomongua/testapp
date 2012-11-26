@@ -70,5 +70,6 @@ namespace :other do
   task :deploy_assets, :except => { :no_release => true } do
     run_locally("rake assets:clean && rake assets:precompile")
     upload("public/assets", "/home/alejomongua/webapps/statictestapp/", via: :scp, :recursive => true) 
+    run("cp /home/alejomongua/webapps/statictestapp/assets/* /home/alejomongua/webapps/testapp/current/public/assets/")
   end
 end
