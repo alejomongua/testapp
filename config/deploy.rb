@@ -60,12 +60,11 @@ namespace :deploy do
   desc "deploy the precompiled assets"
   task :deploy_assets, :except => { :no_release => true } do
     run_locally("rake assets:clean && rake assets:precompile")
- #   upload("public/assets", "#{release_path}/public/assets", :via => :scp, :recursive => true) 
+    upload("public/assets", "#{release_path}/public/assets", :recursive => true) 
   end
 
   before "deploy:update_code", "deploy:push"
   after "deploy:update_code", 'deploy:deploy_assets'  
-  after "deploy:update_code", 'deploy:bundle_install'
 
   desc "Restart nginx"
   task :restart do
