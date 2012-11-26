@@ -1,13 +1,11 @@
 Testapp::Application.routes.draw do
   root to: "paginas_estaticas#inicio"
 
-  get "paginas_estaticas/acerca_de"
+  match "/acerca_de" => "paginas_estaticas#acerca_de"
 
-  get "paginas_estaticas/contacto"
+  match "/politica_de_privacidad" => "paginas_estaticas#politica_de_privacidad"
 
-  get "paginas_estaticas/politica_de_privacidad"
-
-  get "paginas_estaticas/preguntas_frecuentes"
+  match "/preguntas_frecuentes" => "paginas_estaticas#preguntas_frecuentes"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

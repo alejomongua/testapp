@@ -5,9 +5,6 @@ class PaginasEstaticasController < ApplicationController
   def acerca_de
   end
 
-  def contacto
-  end
-
   def politica_de_privacidad
   end
 
