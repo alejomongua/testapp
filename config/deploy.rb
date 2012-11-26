@@ -7,9 +7,12 @@ set :deploy_to, "/home/alejomongua/webapps/testapp"
 role :web, "web312.webfaction.com"                          # Your HTTP server, Apache/etc
 role :app, "web312.webfaction.com"                          # This may be the same as your `Web` server
 role :db,  "web312.webfaction.com", :primary => true # This is where Rails migrations will run
+set :passphrase, "Resistencia86"
 # role :db,  "your slave db-server here"
 set :user, "alejomongua"
-set :scm_parafrase, "Resistencia86"
+set :scm_passphrase, "Resistencia86"
+set :ssh_options, {:forward_agent => true}
+
 set :use_sudo, false
 default_run_options[:pty] = true
 set :keep_releases, 5
