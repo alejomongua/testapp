@@ -74,7 +74,7 @@ end
 namespace :other do
   desc "deploy the precompiled assets"
   task :deploy_assets, :except => { :no_release => true } do
-    upload("public/assets", "#{current_path}/current/public/", via: :scp, :recursive => true) 
-    run("cp #{current_path}/current/public/assets/* /home/alejomongua/webapps/statictestapp/")
+    upload("public/assets", "#{current_path}/public/", via: :scp, :recursive => true) 
+    run("cp #{current_path}/public/assets/* /home/alejomongua/webapps/statictestapp/")
   end
 end
