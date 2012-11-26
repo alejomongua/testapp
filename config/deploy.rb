@@ -59,7 +59,7 @@ namespace :deploy do
 
   desc "deploy the precompiled assets"
     task :deploy_assets, :except => { :no_release => true } do
-      run("bundle exec rake assets:clean && bundle exec rake assets:precompile")
+      run("#{deploy_to}/bin/bundle exec rake assets:clean && #{deploy_to}/bin/bundle exec rake assets:precompile")
 #      upload("public/assets", "#{release_path}/public/assets", :via => :scp, :recursive => true) 
     end
 
