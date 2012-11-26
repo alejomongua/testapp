@@ -64,7 +64,7 @@ namespace :deploy do
     end
 
   before "deploy:update_code", "deploy:push"
-  after "deploy:update_code", 'deploy_assets'  
+  after "deploy:update_code", 'deploy:deploy_assets'  
 
   desc "Restart nginx"
   task :restart do
