@@ -1,5 +1,5 @@
 Testapp::Application.routes.draw do
-  get "paginas_estaticas/inicio"
+  root to: "paginas_estaticas#inicio"
 
   get "paginas_estaticas/acerca_de"
 
