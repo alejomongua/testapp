@@ -9,5 +9,10 @@ class SesionesController < ApplicationController
   end
 
   def fb_callback
+    if params.has_key?(:code)
+      session[:code] = params[:code]
+    else
+      redirect_to 'https://www.facebook.com/dialog/oauth?client_id=121617807996302&redirect_uri=http%3A%2F%2Falejomongua.webfactional.com%2Ffacebook_callback&scope=email'      
+    end
   end
 end
