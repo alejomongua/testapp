@@ -58,5 +58,10 @@ module Testapp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Variables de la aplicacion de facebook
+    APP_ID = '121617807996302'
+    APP_SECRET = 'da924741ae4da08ea0ce7d85caa5dd37'
+    MY_URL = 'http://alejomongua.webfactional.com'
   end
 end

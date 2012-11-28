@@ -7,6 +7,7 @@
     <%= render 'layouts/shim' %>    
   </head>
   <body>
+    <%= render 'layouts/facebookjssdk' %>
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |key, value| %>
@@ -14,8 +15,9 @@
       <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
-      <%= debug(params) if Rails.env.development? %>
+      <%= debug(params) %>
     </div>
-    <%= javascript_include_tag "application" %>    
+    <%= javascript_include_tag "application" %>
+    <%= yield :funciones %>
   </body>
 </html>

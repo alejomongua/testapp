@@ -2,10 +2,14 @@ Testapp::Application.routes.draw do
   root to: "paginas_estaticas#inicio"
 
   match "/acerca_de" => "paginas_estaticas#acerca_de"
-
   match "/politica_de_privacidad" => "paginas_estaticas#politica_de_privacidad"
-
   match "/preguntas_frecuentes" => "paginas_estaticas#preguntas_frecuentes"
+
+  resources :sesiones, only: [:new, :create, :destroy]
+
+  match "/login", to: "sesiones#create"
+  match "/logout", to: "sesiones#destroy"
+  match "/facebook_callback", to: "sesiones#fb_callback"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
